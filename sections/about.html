@@ -1,15 +1,110 @@
-<h2 class="text-4xl font-black italic mb-8 uppercase tracking-tighter">Agent_Bio</h2>
+<div class="flex justify-between items-end mb-8">
+    <h2 class="text-4xl font-black italic uppercase tracking-tighter text-[#16FF00]">Agent_Bio</h2>
+    <div class="text-xs font-mono opacity-50 mb-2">>> PERSONNEL_FILE_01</div>
+</div>
+
+<div class="flex flex-col md:flex-row gap-12 mb-12 items-start">
+
+    <div class="relative w-64 h-80 flex-shrink-0 border-2 border-[#16FF00]/50 overflow-hidden group rounded-sm bg-black shadow-[0_0_20px_rgba(22,255,0,0.1)]">
+        
+        <img src="images/Profile/agent_front.jpg" alt="Agent Front View" 
+             class="absolute inset-0 w-full h-full object-cover transition-all duration-75 ease-linear group-hover:opacity-0 group-hover:scale-105 grayscale contrast-125">
+        
+        <img src="images/Profile/agent_back.jpg" alt="Agent Alt View" 
+             class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-75 ease-linear group-hover:opacity-100 grayscale contrast-150 text-[#16FF00] mix-blend-hard-light">
+             
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#16FF00]/30 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-in-out pointer-events-none z-10"></div>
+        
+        <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#16FF00]"></div>
+        <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#16FF00]"></div>
+    </div>
+
+    <div class="flex-1 space-y-6 font-mono text-sm pt-4">
+        <div>
+            <span class="text-[#16FF00]/60 uppercase tracking-widest text-xs">[ NAME ]</span>
+            <p class="text-3xl font-bold tracking-tight flex items-center gap-3 mt-1">
+                <span>JASON</span>
+                
+                <span class="relative group cursor-crosshair inline-block">
+                    <span class="bg-[#16FF00] text-black px-2 select-none group-hover:opacity-0 transition-opacity duration-500 ease-in-out">
+                        [REDACTED]
+                    </span>
+                    <span class="absolute left-0 top-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out text-[#16FF00] whitespace-nowrap px-2">
+                        GOMEZ
+                    </span>
+                </span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6">
+            <div>
+                <span class="text-[#16FF00]/60 uppercase tracking-widest text-xs">[ ROLE ]</span>
+                <p class="text-lg mt-1">Offensive Security Specialist</p>
+            </div>
+            <div>
+                <span class="text-[#16FF00]/60 uppercase tracking-widest text-xs">[ AFFILIATION ]</span>
+                <p class="text-lg mt-1 ">CCA / ICSLIS Vice-President / Exploit Unit</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="my-12 border-b border-dashed border-[#16FF00]/40"></div>
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div class="border-l-4 border-[#16FF00] bg-[#16FF00]/5 p-6">
-        <h3 class="font-bold mb-2 uppercase tracking-widest underline">Mission Focus</h3>
-        <p class="text-sm">Red Team enthusiast and CS student. Specializing in offensive security, automated vulnerability discovery, and building tools for high-stakes environments.</p>
+        <h3 class="font-bold mb-2 uppercase tracking-widest underline decoration-[#16FF00]/30">Mission Focus</h3>
+        <p class="text-sm leading-relaxed opacity-90">Computer Science Student at CCA. Red Team enthusiast focused on penetration testing, bug bounties, and offensive security tool development. Leader of Exploit Unit.</p>
     </div>
-    <div class="border border-[#16FF00]/20 p-6">
-        <h3 class="font-bold mb-2 uppercase tracking-widest opacity-60">Cover Hobbies</h3>
-        <ul class="text-sm space-y-1">
-            <li>- Strategic Sims: R6 Siege, Valorant</li>
-            <li>- Technical: Motorcycle customization</li>
-            <li>- Hardware: System building & Laptop Modding</li>
+    <div class="border border-[#16FF00]/20 p-6 bg-black/40">
+        <h3 class="font-bold mb-2 uppercase tracking-widest opacity-60">Cover Identity (Hobbies)</h3>
+        <ul class="text-sm space-y-2 font-mono opacity-80">
+            <li class="flex items-center"><span class="text-[#16FF00] mr-2">></span> Strategic Sims: R6 Siege / Valorant</li>
+            <li class="flex items-center"><span class="text-[#16FF00] mr-2">></span> Hardware: Motorcycle Maintenance</li>
+            <li class="flex items-center"><span class="text-[#16FF00] mr-2">></span> Narrative: The Witcher Series</li>
         </ul>
+    </div>
+</div>
+
+<div class="mb-12">
+    <h3 class="font-bold mb-4 uppercase tracking-widest text-[#16FF00] flex items-center">
+        <span class="w-2 h-2 bg-[#16FF00] mr-2"></span> Service_Record // Commendations
+    </h3>
+
+    <div class="space-y-4 font-mono text-sm">
+        
+        <div class="border-l-2 border-[#16FF00] bg-[#16FF00]/5 p-4 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-[#16FF00]/10 transition-colors">
+            <div>
+                <p class="font-bold text-white text-lg">Ethical Hacker CTF (Cisco Congress)</p>
+                <p class="text-[#16FF00]/70 text-xs mt-1">HOST: CISCO & HAU // ROLE: TEAM LEADER (EXPLOIT UNIT)</p>
+            </div>
+            <div class="mt-2 md:mt-0 text-right">
+                <span class="block text-[#16FF00] font-bold bg-[#16FF00]/10 px-2 py-1 border border-[#16FF00]/20 animate-pulse">RANK: CHAMPION</span>
+                <span class="block text-[10px] opacity-50 mt-1">JAN 2026</span>
+            </div>
+        </div>
+
+        <div class="border-l-2 border-[#16FF00]/30 border-dashed p-4 flex flex-col md:flex-row justify-between items-start md:items-center hover:border-solid hover:border-[#16FF00] transition-all">
+            <div>
+                <p class="font-bold text-white/90">Hack4Gov CTF</p>
+                <p class="text-white/50 text-xs mt-1">HOST: DICT REGION 3 // REGIONAL FINALS</p>
+            </div>
+            <div class="mt-2 md:mt-0 text-right">
+                <span class="block text-white/80 text-xs px-2 py-1 border border-white/10">STATUS: PARTICIPANT</span>
+                <span class="block text-[10px] opacity-50 mt-1">DEC 2025</span>
+            </div>
+        </div>
+
+        <div class="border-l-2 border-[#16FF00]/30 border-dashed p-4 flex flex-col md:flex-row justify-between items-start md:items-center hover:border-solid hover:border-[#16FF00] transition-all">
+            <div>
+                <p class="font-bold text-white/90">Cloudstaff AI Hackathon</p>
+                <p class="text-white/50 text-xs mt-1">PROJECT: BAYANNIJUAN (DISASTER RESPONSE PWA)</p>
+            </div>
+            <div class="mt-2 md:mt-0 text-right">
+                <span class="block text-white/80 text-xs px-2 py-1 border border-white/10">STATUS: FINALIST</span>
+                <span class="block text-[10px] opacity-50 mt-1">NOV 2025</span>
+            </div>
+        </div>
+
     </div>
 </div>
