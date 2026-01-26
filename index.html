@@ -5,179 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECHELON // COMMAND_CENTER</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'JetBrains Mono', monospace; }
-        .scanline {
-            width: 100%;
-            height: 2px;
-            background: rgba(22, 255, 0, 0.1);
-            position: absolute;
-            animation: scan 4s linear infinite;
-            z-index: 100;
-        }
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-        .hidden-section { display: none; }
-        .crt-overlay {
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            background-size: 100% 3px, 3px 100%;
-            pointer-events: none;
-        }
+        body { font-family: 'JetBrains Mono', monospace; background: #050505; color: #16FF00; overflow: hidden; }
+        .scanline { width: 100%; height: 2px; background: rgba(22, 255, 0, 0.1); position: absolute; animation: scan 4s linear infinite; z-index: 100; pointer-events: none; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        .crt-overlay { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); background-size: 100% 3px, 3px 100%; pointer-events: none; position: fixed; inset: 0; z-index: 50; }
+        .nav-active { color: white; border-left: 2px solid #16FF00; padding-left: 10px; }
     </style>
 </head>
-<body class="bg-[#050505] text-[#16FF00] overflow-hidden">
+<body>
     <div class="scanline"></div>
-    <div class="crt-overlay fixed inset-0 z-50"></div>
+    <div class="crt-overlay"></div>
 
-    <div class="flex h-screen border-4 border-[#16FF00]/10 m-2">
-        
-        <nav class="w-72 border-r border-[#16FF00]/20 bg-[#080808] p-8 flex flex-col justify-between">
+    <div class="flex h-screen p-2 border-4 border-[#16FF00]/10">
+        <nav class="w-72 border-r border-[#16FF00]/20 bg-[#080808] p-8 flex flex-col justify-between z-10">
             <div>
                 <div class="mb-12 border-b border-[#16FF00]/20 pb-4">
                     <h1 class="text-2xl font-black italic tracking-tighter">AGENT_JASON</h1>
                     <p class="text-[10px] text-white/40 tracking-[0.2em]">IDENT_VERIFIED // ECHELON</p>
                 </div>
-
-                <ul class="space-y-6">
-                    <li><button onclick="showSection('home')" class="nav-btn group flex items-center space-x-4 hover:text-white">
-                        <span class="text-xs opacity-30 group-hover:opacity-100">01</span>
-                        <span class="tracking-widest uppercase text-sm">Latest Intel</span>
-                    </button></li>
-                    <li><button onclick="showSection('about')" class="nav-btn group flex items-center space-x-4 hover:text-white">
-                        <span class="text-xs opacity-30 group-hover:opacity-100">02</span>
-                        <span class="tracking-widest uppercase text-sm">Agent Bio</span>
-                    </button></li>
-                    <li><button onclick="showSection('certs')" class="nav-btn group flex items-center space-x-4 hover:text-white">
-                        <span class="text-xs opacity-30 group-hover:opacity-100">03</span>
-                        <span class="tracking-widest uppercase text-sm">Clearance</span>
-                    </button></li>
-                    <li><button onclick="showSection('projects')" class="nav-btn group flex items-center space-x-4 hover:text-white">
-                        <span class="text-xs opacity-30 group-hover:opacity-100">04</span>
-                        <span class="tracking-widest uppercase text-sm">Blacklist Ops</span>
-                    </button></li>
-                    <li><button onclick="showSection('activities')" class="nav-btn group flex items-center space-x-4 hover:text-white">
-                        <span class="text-xs opacity-30 group-hover:opacity-100">05</span>
-                        <span class="tracking-widest uppercase text-sm">Field Logs</span>
-                    </button></li>
+                <ul class="space-y-6" id="main-nav">
+                    <li><button onclick="loadSection('home', this)" class="nav-active uppercase text-sm tracking-widest flex items-center space-x-2"><span>01</span> <span>Latest Intel</span></button></li>
+                    <li><button onclick="loadSection('about', this)" class="uppercase text-sm tracking-widest flex items-center space-x-2 opacity-60 hover:opacity-100 transition-opacity"><span>02</span> <span>Agent Bio</span></button></li>
+                    <li><button onclick="loadSection('certs', this)" class="uppercase text-sm tracking-widest flex items-center space-x-2 opacity-60 hover:opacity-100 transition-opacity"><span>03</span> <span>Clearance</span></button></li>
+                    <li><button onclick="loadSection('projects', this)" class="uppercase text-sm tracking-widest flex items-center space-x-2 opacity-60 hover:opacity-100 transition-opacity"><span>04</span> <span>Blacklist Ops</span></button></li>
+                    <li><button onclick="loadSection('activities', this)" class="uppercase text-sm tracking-widest flex items-center space-x-2 opacity-60 hover:opacity-100 transition-opacity"><span>05</span> <span>Field Logs</span></button></li>
                 </ul>
             </div>
-            
-            <div class="space-y-2 opacity-40 text-[9px] border-t border-[#16FF00]/10 pt-4">
-                <p>SIGNAL: SECURE [AES-256]</p>
-                <p>UPLINK: ACTIVE</p>
-            </div>
+            <div class="text-[9px] opacity-30">UPLINK: STABLE // PH_NODE_03</div>
         </nav>
 
-        <main class="flex-1 bg-[#0a0a0a] p-12 overflow-y-auto relative">
-            
-            <section id="home" class="content-section">
-                <h2 class="text-4xl font-black italic mb-8 uppercase tracking-tighter">Latest_Intel</h2>
-                <div class="space-y-6">
-                    <div class="border border-[#16FF00]/20 p-6 bg-black/40 hover:border-[#16FF00] transition-all">
-                        <p class="text-[10px] opacity-50 mb-2">DATE: 2026.01.24 // TYPE: RED_TEAM_RESEARCH</p>
-                        <h3 class="text-xl font-bold mb-2 uppercase">Genetic Algorithms in Web Fuzzing</h3>
-                        <p class="text-sm opacity-80 italic">Optimizing vulnerability discovery through automated evolutionary testing...</p>
-                    </div>
-                    <div class="border border-[#16FF00]/20 p-6 bg-black/40 hover:border-[#16FF00] transition-all opacity-60">
-                        <p class="text-[10px] opacity-50 mb-2">DATE: 2025.12.15 // TYPE: MOBILE_SEC</p>
-                        <h3 class="text-xl font-bold mb-2 uppercase">Android Braille Reader: OpenCV Integration</h3>
-                        <p class="text-sm">Finalizing camera recognition module for real-time translation.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="about" class="content-section hidden-section">
-                <h2 class="text-4xl font-black italic mb-8 uppercase tracking-tighter">Agent_Bio</h2>
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="border border-[#16FF00]/20 p-6">
-                        <h4 class="text-[#16FF00] border-b border-[#16FF00]/20 mb-4 pb-2">CORE_OBJECTIVE</h4>
-                        <p class="text-sm leading-relaxed">Computer Science Student at CCA. Red Team enthusiast focused on penetration testing, bug bounties, and offensive security tool development. Leader of Exploit Unit.</p>
-                    </div>
-                    <div class="border border-[#16FF00]/20 p-6">
-                        <h4 class="text-[#16FF00] border-b border-[#16FF00]/20 mb-4 pb-2">INTERESTS_AND_HOBBIES</h4>
-                        <ul class="text-sm space-y-2">
-                            <li>> Tactile Hardware: Motorcycle maintenance</li>
-                            <li>> Combat Simulation: R6 Siege / Valorant</li>
-                            <li>> Narrative immersion: The Witcher series</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="certs" class="content-section hidden-section text-center">
-                <h2 class="text-4xl font-black italic mb-8 uppercase tracking-tighter text-left">Clearance_Levels</h2>
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="border border-[#16FF00]/20 aspect-video flex flex-col items-center justify-center p-4 bg-black/80 group cursor-pointer hover:bg-[#16FF00]/5 transition-all">
-                        <div class="w-12 h-12 border-2 border-[#16FF00] mb-4 flex items-center justify-center group-hover:scale-110 transition-transform">★</div>
-                        <p class="text-xs font-bold uppercase">eJPTv2</p>
-                        <p class="text-[8px] opacity-40 mt-1">ISSUED: 2025</p>
-                    </div>
-                    <div class="border border-[#16FF00]/20 aspect-video flex flex-col items-center justify-center p-4 opacity-30">
-                        <p class="text-xs">[ LOCKED ]</p>
-                        <p class="text-[8px] mt-1">PENDING OSCP EXAM</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="projects" class="content-section hidden-section">
-                <h2 class="text-4xl font-black italic mb-8 uppercase tracking-tighter">Blacklist_Ops</h2>
-                <div class="border border-[#16FF00]/40 p-1 mb-6">
-                    <div class="bg-[#16FF00]/5 p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-2xl font-bold italic underline">EVOFUZZ</h3>
-                            <span class="text-[10px] bg-[#16FF00] text-black px-2">THESIS_ACTIVE</span>
-                        </div>
-                        <p class="text-sm opacity-90 mb-4">Genetic Algorithm-Powered Automated Web Vulnerability Discovery. Built to evolve payloads based on server response patterns.</p>
-                        <div class="flex space-x-3 text-[10px]">
-                            <span class="border border-[#16FF00] px-2 py-1">PYTHON</span>
-                            <span class="border border-[#16FF00] px-2 py-1">DOCKER</span>
-                            <span class="border border-[#16FF00] px-2 py-1">SELENIUM</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="activities" class="content-section hidden-section">
-                <h2 class="text-4xl font-black italic mb-8 uppercase tracking-tighter">Field_Logs</h2>
-                <div class="border border-[#16FF00]/20 bg-black/40 p-8">
-                    <div class="space-y-4">
-                        <div class="group">
-                            <p class="text-sm flex items-center space-x-2">
-                                <span class="text-white">▼</span> 📁 <span class="font-bold">CYBERSECURITY_ELECTIVES</span>
-                            </p>
-                            <div class="ml-10 mt-2 space-y-2 border-l border-[#16FF00]/20 pl-4">
-                                <p class="text-xs hover:text-white cursor-pointer">> Ethical Hacking 101</p>
-                                <p class="text-xs hover:text-white cursor-pointer">> Network Defense</p>
-                                <p class="text-xs hover:text-white cursor-pointer">> Digital Forensics</p>
-                            </div>
-                        </div>
-                        <div class="group">
-                            <p class="text-sm flex items-center space-x-2 opacity-50">
-                                <span class="text-white">▶</span> 📁 <span class="font-bold">CORE_CS_SUBJECTS</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </main>
+        <main id="content-display" class="flex-1 bg-[#0a0a0a] p-12 overflow-y-auto relative z-10">
+            </main>
     </div>
 
     <script>
-        function showSection(id) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.add('hidden-section');
-            });
-            // Show target
-            document.getElementById(id).classList.remove('hidden-section');
-            
-            // Console log effect
-            console.log(`[SYS] ACCESSING_DIRECTORY: /root/user/jason/${id}... ACCESS_GRANTED.`);
+        async function loadSection(sectionName, element) {
+            // Update UI Active State
+            document.querySelectorAll('#main-nav button').forEach(btn => btn.classList.remove('nav-active', 'opacity-100'));
+            document.querySelectorAll('#main-nav button').forEach(btn => btn.classList.add('opacity-60'));
+            element.classList.add('nav-active', 'opacity-100');
+            element.classList.remove('opacity-60');
+
+            // Fetch and Inject Content
+            try {
+                const response = await fetch(`sections/${sectionName}.html`);
+                const html = await response.text();
+                document.getElementById('content-display').innerHTML = html;
+                console.log(`[SYS] File loaded: ${sectionName}.html`);
+            } catch (err) {
+                document.getElementById('content-display').innerHTML = `<p class="text-red-500">ERROR: FAILED_TO_RETRIEVE_${sectionName.toUpperCase()}_DATA</p>`;
+            }
         }
+
+        // Initial Load
+        window.onload = () => {
+            const firstBtn = document.querySelector('#main-nav button');
+            loadSection('home', firstBtn);
+        };
     </script>
 </body>
 </html>
