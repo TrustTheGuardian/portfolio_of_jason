@@ -154,6 +154,44 @@
             const firstBtn = document.querySelector('#main-nav button');
             if(firstBtn) loadSection('home', firstBtn);
         };
+
+
+        // --- 5. GLITCH EFFECT LOGIC ---
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&";
+
+    function runGlitch(element) {
+        // Prevent speed-up if already running
+        if (element.dataset.animating === "true") return;
+        
+        element.dataset.animating = "true";
+        
+        // We get the hidden text ONLY to know how long the glitch bar should be
+        const originalText = element.dataset.value; 
+        
+        clearInterval(element.interval);
+
+        element.interval = setInterval(() => {
+            element.innerText = originalText
+                .split("")
+                .map((letter) => {
+                    // PRESERVE SPACES (so it looks like sentences)
+                    if(letter === " ") return " "; 
+                    
+                    // ALWAYS RETURN RANDOM CHARACTERS. NEVER RETURN THE REAL LETTER.
+                    return letters[Math.floor(Math.random() * letters.length)];
+                })
+                .join("");
+            
+        }, 50); // Speed of the scrambling
+    }
+
+    function hideGlitch(element) {
+        clearInterval(element.interval);
+        // Instantly snap back to Classified
+        element.innerText = "[ // CLASSIFIED // ]";
+        element.dataset.animating = "false";
+    }
+
     </script>
 </body>
 </html>
